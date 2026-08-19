@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+@import 'tailwindcss';
+
+:root {
+  --bg: #030304;
+  --surface: #0a0a0d;
+  --card: #121216;
+  --border: #26262e;
+  --accent: #7c3aed;
+  --chrome-light: #ffffff;
+  --chrome-mid: #94a3b8;
+  --chrome-dark: #334155;
+  --muted: #94a3b8;
+}
+
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #030304;
+  color: #ffffff;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-mono-intel {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.font-serif-editorial {
+  font-family: 'Instrument Serif', Georgia, serif;
+}
+
+/* Liquid Chrome Background & Gradients */
+.bg-chrome-surface {
+  background: linear-gradient(145deg, #0d0d12 0%, #030305 50%, #121218 100%);
+}
+
+.bg-chrome-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(20, 20, 25, 0.95) 40%, rgba(5, 5, 7, 0.98) 100%);
+  backdrop-filter: blur(12px);
+}
+
+.border-chrome-metallic {
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.text-chrome-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 30%, #cbd5e1 60%, #64748b 85%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-chrome-metal {
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 50%, #64748b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-chrome-liquid {
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 25%, #94a3b8 50%, #475569 75%, #cbd5e1 100%);
+}
+
+/* Signature Vibe Purple Tag Badge (#AC58E9) */
+.badge-purple {
+  background-color: #7c3aed;
+  color: #ffffff;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(172, 88, 233, 0.4);
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.bg-grid-fine {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@keyframes scan-line {
+  0%   { top: 0%;   opacity: 1; }
+  85%  { opacity: 0.6; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes liquid-morph {
+  0% {
+    transform: scale(1) translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: scale(1.06) translateY(-18px) rotate(1.2deg);
+  }
+  66% {
+    transform: scale(1.03) translateY(12px) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) translateY(0px) rotate(0deg);
+  }
+}
+
+.animate-liquid-morph {
+  animation: liquid-morph 22s ease-in-out infinite;
+}
+
+.animate-scan {
+  animation: scan-line 2.4s linear infinite;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.animate-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* Modal Overlay Styling */
+.modal-backdrop {
+  background-color: rgba(3, 3, 4, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+/* Custom Scrollbar for Modal content */
+.custom-scrollbar::-webkit-scrollbar {
+  display: block;
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #0a0a0d;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #26262e;
+  border-radius: 0px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
