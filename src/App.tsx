@@ -1645,37 +1645,46 @@ export default function App() {
         window.history.scrollRestoration = 'manual'
       }
 
-      const resetScroll = () => {
+      const rootEl = document.documentElement
+      const originalScrollBehavior = rootEl.style.scrollBehavior
+      rootEl.style.scrollBehavior = 'auto'
+
+      const forceScrollTop = () => {
         const hash = window.location.hash
         if (!hash || hash === '#hero' || hash === '#') {
-          window.scrollTo(0, 0)
-          document.documentElement.scrollTop = 0
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+          rootEl.scrollTop = 0
           document.body.scrollTop = 0
         } else {
           const targetEl = document.querySelector(hash)
           if (targetEl) {
             targetEl.scrollIntoView({ behavior: 'smooth' })
           } else {
-            window.scrollTo(0, 0)
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
           }
         }
       }
 
-      resetScroll()
+      forceScrollTop()
 
-      const t1 = setTimeout(resetScroll, 10)
-      const t2 = setTimeout(resetScroll, 100)
-      const t3 = setTimeout(resetScroll, 300)
+      const timers = [10, 50, 100, 250, 500, 1000].map(ms =>
+        setTimeout(forceScrollTop, ms)
+      )
 
-      window.addEventListener('load', resetScroll)
-      window.addEventListener('pageshow', resetScroll)
+      const enableSmoothTimer = setTimeout(() => {
+        rootEl.style.scrollBehavior = originalScrollBehavior || 'smooth'
+      }, 600)
+
+      const handleEvent = () => forceScrollTop()
+      window.addEventListener('load', handleEvent)
+      window.addEventListener('pageshow', handleEvent)
 
       return () => {
-        clearTimeout(t1)
-        clearTimeout(t2)
-        clearTimeout(t3)
-        window.removeEventListener('load', resetScroll)
-        window.removeEventListener('pageshow', resetScroll)
+        timers.forEach(clearTimeout)
+        clearTimeout(enableSmoothTimer)
+        window.removeEventListener('load', handleEvent)
+        window.removeEventListener('pageshow', handleEvent)
+        rootEl.style.scrollBehavior = originalScrollBehavior || 'smooth'
       }
     }
   }, [])
