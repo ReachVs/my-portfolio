@@ -6,10 +6,11 @@
         history.scrollRestoration = 'manual';
       }
       document.documentElement.style.scrollBehavior = 'auto';
-      if (!window.location.hash || window.location.hash === '#hero' || window.location.hash === '#') {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
+      if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
       }
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

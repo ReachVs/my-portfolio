@@ -1645,24 +1645,19 @@ export default function App() {
         window.history.scrollRestoration = 'manual'
       }
 
+      // Strip initial hash on page load to prevent autocompleted hashes (like #about) from jumping down
+      if (window.location.hash) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search)
+      }
+
       const rootEl = document.documentElement
       const originalScrollBehavior = rootEl.style.scrollBehavior
       rootEl.style.scrollBehavior = 'auto'
 
       const forceScrollTop = () => {
-        const hash = window.location.hash
-        if (!hash || hash === '#hero' || hash === '#') {
-          window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-          rootEl.scrollTop = 0
-          document.body.scrollTop = 0
-        } else {
-          const targetEl = document.querySelector(hash)
-          if (targetEl) {
-            targetEl.scrollIntoView({ behavior: 'smooth' })
-          } else {
-            window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-          }
-        }
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+        rootEl.scrollTop = 0
+        document.body.scrollTop = 0
       }
 
       forceScrollTop()
