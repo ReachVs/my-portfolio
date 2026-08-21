@@ -1644,16 +1644,38 @@ export default function App() {
       if ('scrollRestoration' in window.history) {
         window.history.scrollRestoration = 'manual'
       }
-      
-      if (!window.location.hash) {
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-      } else {
-        const targetEl = document.querySelector(window.location.hash)
-        if (targetEl) {
-          targetEl.scrollIntoView({ behavior: 'smooth' })
+
+      const resetScroll = () => {
+        const hash = window.location.hash
+        if (!hash || hash === '#hero' || hash === '#') {
+          window.scrollTo(0, 0)
+          document.documentElement.scrollTop = 0
+          document.body.scrollTop = 0
         } else {
-          window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+          const targetEl = document.querySelector(hash)
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth' })
+          } else {
+            window.scrollTo(0, 0)
+          }
         }
+      }
+
+      resetScroll()
+
+      const t1 = setTimeout(resetScroll, 10)
+      const t2 = setTimeout(resetScroll, 100)
+      const t3 = setTimeout(resetScroll, 300)
+
+      window.addEventListener('load', resetScroll)
+      window.addEventListener('pageshow', resetScroll)
+
+      return () => {
+        clearTimeout(t1)
+        clearTimeout(t2)
+        clearTimeout(t3)
+        window.removeEventListener('load', resetScroll)
+        window.removeEventListener('pageshow', resetScroll)
       }
     }
   }, [])
