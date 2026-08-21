@@ -1639,6 +1639,25 @@ function LiquidGlassBackground() {
 // ─── Root Application ─────────────────────────────────────────────────────────
 
 export default function App() {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual'
+      }
+      
+      if (!window.location.hash) {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+      } else {
+        const targetEl = document.querySelector(window.location.hash)
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' })
+        } else {
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+        }
+      }
+    }
+  }, [])
+
   return (
     <div className="relative bg-[#030304] text-white min-h-screen">
       <LiquidGlassBackground />
